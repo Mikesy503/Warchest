@@ -1,4 +1,14 @@
 # Script that will send a discord message when A new episode comes out for whichever anime you specify at anytime you specify.
+# To run, right click file and run from powershell.
+# If it closes immediately you need to allow powershell to run .ps1 files.
+# Take note of what your ExecutionPolicy is before you change it so you can change it back.
+# To check what your ExecutionPolicy is, open powershell as Administrator and type the following command.
+# Get-ExecutionPolicy
+# To allow powershell to run .ps1 files open powershell as Administrator and run the following command.
+# Set-ExecutionPolicy -ExecutionPolicy Unrestricted
+# You can change it back to whatever it was before with the same command just replace 'Unrestricted' with what it was before.
+
+# Cheers!
 
 $action = New-ScheduledTaskAction -Execute powershell.exe -Argument {
     $webrequest = (Invoke-RestMethod -uri https://subsplease.org/rss/?t | Select-Object -Property title)
