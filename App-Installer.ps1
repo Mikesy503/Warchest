@@ -3,12 +3,11 @@
 
 # You will need to open PowerShell as Administrator and type in: Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
 
-$Createlist = read-host -Prompt 'Name of programs you wish to install.
+read-host -Prompt 'Name of programs you wish to install.
 (Example: Chrome, Discord, Skype)' | Out-File -FilePath $env:TEMP\programlist.csv
-$Programs = Get-Content -Delimiter ', ' -Path $env:temp\programlist.csv
+$Programs = (Get-Content -Path $env:temp\programlist.csv -raw ).Split(',').ForEach{$_.trim()}
 foreach ($program in $programs) {
-    if ((winget install --moniker $program.TrimEnd(', ')) -match 'Multiple packages found matching input criteria. Please refine the input.')
+    if ((winget install --moniker $program) -match 'Multiple packages found matching input criteria. Please refine the input.')
     { Start-Process https://winget.run/search?query=$program }
-    else { winget install --moniker $program.TrimEnd(', ') }
+    else { winget install --moniker $program} 
 }
-remove-item -Path $env:temp\programlist.csv
