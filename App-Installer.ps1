@@ -9,5 +9,5 @@ $Programs = (Get-Content -Path $env:temp\programlist.csv -raw ).Split(',').ForEa
 foreach ($program in $programs) {
     if ((winget install --moniker $program) -match 'Multiple packages found matching input criteria. Please refine the input.')
     { Start-Process https://winget.run/search?query=$program }
-    else { winget install --moniker $program} 
+    else { winget install --moniker $program}
 }
